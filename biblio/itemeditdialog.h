@@ -2,8 +2,32 @@
 #define ITEMEDITDIALOG_H
 
 #include <QDialog>
+#include <QFrame>
+
+class QPushButton;
 
 namespace Biblio {
+
+namespace ItemEditDialog_Helper {
+    class Buttons : public QFrame
+    {
+        Q_OBJECT
+
+    public:
+        explicit Buttons(QDialog *parent = 0);
+        virtual ~Buttons();
+
+    signals:
+        void accepting();
+        void rejecting();
+
+    private:
+        Q_DISABLE_COPY(Buttons)
+
+        QPushButton *okButton;
+        QPushButton *cancelButton;
+    };
+} // namespace ItemEditDialog_Helper
 
 /**
  * @brief Редактирование данных об издании в отдельном окне.
@@ -18,6 +42,8 @@ public:
 
 private:
     Q_DISABLE_COPY(ItemEditDialog)
+
+    ItemEditDialog_Helper::Buttons *btn;
 };
 
 } // namespace Biblio

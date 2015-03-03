@@ -1,4 +1,3 @@
-#include <QToolButton>
 #include <QMenuBar>
 #include "itemeditdialog.h"
 
@@ -16,12 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(a, SIGNAL(triggered()), this, SLOT(newItem()));
     }
 
-    /*QMenu *menuItem = */menuBar()->addMenu(tr("Item"));
+    QMenu *menuItem = menuBar()->addMenu(tr("Item"));
+    menuItem->addAction(actNewItem);
 
-    QToolButton *b = new QToolButton(this);
-    b->setText(tr("Item"));
-    b->move(50, 50);
-    b->setDefaultAction(actNewItem);
+//    actNewItem->setEnabled(false);
 }
 
 MainWindow::~MainWindow() { }
