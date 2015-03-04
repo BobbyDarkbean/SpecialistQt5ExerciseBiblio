@@ -9,20 +9,20 @@ class QPushButton;
 namespace Biblio {
 
 namespace ItemEditDialog_Helper {
-    class Buttons : public QFrame
+    class ButtonsFrame : public QFrame
     {
         Q_OBJECT
 
     public:
-        explicit Buttons(QDialog *parent = 0);
-        virtual ~Buttons();
+        explicit ButtonsFrame(QDialog *parent = 0);
+        virtual ~ButtonsFrame();
 
     signals:
         void accepting();
         void rejecting();
 
     private:
-        Q_DISABLE_COPY(Buttons)
+        Q_DISABLE_COPY(ButtonsFrame)
 
         QPushButton *okButton;
         QPushButton *cancelButton;
@@ -43,7 +43,7 @@ public:
 private:
     Q_DISABLE_COPY(ItemEditDialog)
 
-    ItemEditDialog_Helper::Buttons *btn;
+    ItemEditDialog_Helper::ButtonsFrame *btn;
 };
 
 } // namespace Biblio
