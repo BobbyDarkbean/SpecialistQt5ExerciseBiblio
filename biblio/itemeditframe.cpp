@@ -249,9 +249,12 @@ void ItemEditFrame::setup_year(QBoxLayout *l)
     QLabel *lbl = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Year"));
+    Hlp::setWidth(lbl, 50);
     l1->addWidget(lbl);
 
     QLineEdit *txt = new QLineEdit(this);
+    txt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    Hlp::setWidth(txt, 50);
     l1->addWidget(txt);
 }
 
@@ -264,7 +267,7 @@ void ItemEditFrame::setup_total_pages(QBoxLayout *l)
 
     QLabel *lbl = lblTotalPages = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-    lbl->setText(tr("Total pages"));
+    lbl->setText(tr("total p."));
     Hlp::setWidth(lbl, 50);
     l1->addWidget(lbl);
 
@@ -283,7 +286,7 @@ void ItemEditFrame::setup_journal(QBoxLayout *l)
 
     QLabel *lbl = lblJournal = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-    lbl->setText(tr("Journal"));
+    lbl->setText(tr("Journal title"));
     l1->addWidget(lbl);
 
     QLineEdit *txt = edtJournal = new QLineEdit(this);
@@ -299,10 +302,13 @@ void ItemEditFrame::setup_volume(QBoxLayout *l)
 
     QLabel *lbl = lblVolume = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-    lbl->setText(tr("Volume"));
+    lbl->setText(tr("Vol."));
+    Hlp::setWidth(lbl, 50);
     l1->addWidget(lbl);
 
     QLineEdit *txt = edtVolume = new QLineEdit(this);
+    txt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    Hlp::setWidth(txt, 50);
     l1->addWidget(txt);
 }
 
@@ -316,9 +322,12 @@ void ItemEditFrame::setup_issue(QBoxLayout *l)
     QLabel *lbl = lblIssue = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Issue"));
+    Hlp::setWidth(lbl, 50);
     l1->addWidget(lbl);
 
     QLineEdit *txt = edtIssue = new QLineEdit(this);
+    txt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    Hlp::setWidth(txt, 50);
     l1->addWidget(txt);
 }
 
@@ -331,7 +340,7 @@ void ItemEditFrame::setup_page(QBoxLayout *l)
 
     QLabel *lbl = lblPage = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-    lbl->setText(tr("Page"));
+    lbl->setText(tr("p."));
     Hlp::setWidth(lbl, 50);
     l1->addWidget(lbl);
 
