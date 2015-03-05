@@ -25,4 +25,5 @@ HEADERS += \
     helpers.h \
     itemeditdialog.h \
     itemeditframe.h \
+    items.h \
     mainwindow.h

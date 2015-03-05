@@ -3,6 +3,7 @@
 #include <QComboBox>
 #include <QTextEdit>
 #include <QBoxLayout>
+#include "items.h"
 #include "helpers.h"
 
 #include "itemeditframe.h"
@@ -40,9 +41,105 @@ ItemEditFrame::ItemEditFrame(QWidget *parent) :
      setup_page(l1);
     }
     setup_comment(l);
+
+    emit cbxItemType->currentIndexChanged(Unknown);
 }
 
 ItemEditFrame::~ItemEditFrame() { }
+
+void ItemEditFrame::itemTypeSelected(int index)
+{
+    QComboBox *c = dynamic_cast<QComboBox *>(sender());
+    if (!c) {
+        /// @TODO Написать сообщение в лог
+        return;
+    }
+
+    bool ok = false;
+    ItemType t = ItemType(c->itemData(index).toInt(&ok));
+    if (!ok) {
+        /// @TODO Написать сообщение в лог
+        return;
+    }
+
+    switch (t) {
+    case Unknown:
+        lblTotalPages->setVisible(true);
+        lblTotalPages->setEnabled(false);
+        edtTotalPages->setVisible(true);
+        edtTotalPages->setEnabled(false);
+
+        lblJournal->setVisible(true);
+        lblJournal->setEnabled(false);
+        edtJournal->setVisible(true);
+        edtJournal->setEnabled(false);
+        lblVolume->setVisible(true);
+        lblVolume->setEnabled(false);
+        edtVolume->setVisible(true);
+        edtVolume->setEnabled(false);
+        lblIssue->setVisible(true);
+        lblIssue->setEnabled(false);
+        edtIssue->setVisible(true);
+        edtIssue->setEnabled(false);
+        lblPage->setVisible(true);
+        lblPage->setEnabled(false);
+        edtPage->setVisible(true);
+        edtPage->setEnabled(false);
+
+        break;
+    case Book:
+        lblTotalPages->setVisible(true);
+        lblTotalPages->setEnabled(true);
+        edtTotalPages->setVisible(true);
+        edtTotalPages->setEnabled(true);
+
+        lblJournal->setVisible(false);
+        lblJournal->setEnabled(false);
+        edtJournal->setVisible(false);
+        edtJournal->setEnabled(false);
+        lblVolume->setVisible(false);
+        lblVolume->setEnabled(false);
+        edtVolume->setVisible(false);
+        edtVolume->setEnabled(false);
+        lblIssue->setVisible(false);
+        lblIssue->setEnabled(false);
+        edtIssue->setVisible(false);
+        edtIssue->setEnabled(false);
+        lblPage->setVisible(false);
+        lblPage->setEnabled(false);
+        edtPage->setVisible(false);
+        edtPage->setEnabled(false);
+
+        break;
+    case Article:
+        lblTotalPages->setVisible(false);
+        lblTotalPages->setEnabled(false);
+        edtTotalPages->setVisible(false);
+        edtTotalPages->setEnabled(false);
+
+        lblJournal->setVisible(true);
+        lblJournal->setEnabled(true);
+        edtJournal->setVisible(true);
+        edtJournal->setEnabled(true);
+        lblVolume->setVisible(true);
+        lblVolume->setEnabled(true);
+        edtVolume->setVisible(true);
+        edtVolume->setEnabled(true);
+        lblIssue->setVisible(true);
+        lblIssue->setEnabled(true);
+        edtIssue->setVisible(true);
+        edtIssue->setEnabled(true);
+        lblPage->setVisible(true);
+        lblPage->setEnabled(true);
+        edtPage->setVisible(true);
+        edtPage->setEnabled(true);
+
+        break;
+    default:
+        /// @TODO Написать сообщение в лог
+        return;
+    }
+}
 
 void ItemEditFrame::setup_item_type(QBoxLayout *l)
 {
@@ -52,7 +149,13 @@ void ItemEditFrame::setup_item_type(QBoxLayout *l)
     QSpacerItem *sp = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     l1->addItem(sp);
 
-    QComboBox *cbx = new QComboBox(this);
+    QComboBox *cbx = cbxItemType = new QComboBox(this);
+    cbx->addItem(tr("---"), Unknown);
+    cbx->addItem(tr("Book"), Book);
+    cbx->addItem(tr("Article"), Article);
+    cbx->setCurrentIndex(Unknown);
+    connect(cbx, SIGNAL(currentIndexChanged(int)), this, SLOT(itemTypeSelected(int)));
+
     l1->addWidget(cbx);
 }
 
@@ -109,7 +212,7 @@ void ItemEditFrame::setup_location(QBoxLayout *l)
     QBoxLayout *l1 = new QVBoxLayout;
     l1->setSpacing(2);
     l1->setMargin(0);
-    l->addLayout(l1);
+    l->addLayout(l1, 1);
 
     QLabel *lbl = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
@@ -125,7 +228,7 @@ void ItemEditFrame::setup_publisher(QBoxLayout *l)
     QBoxLayout *l1 = new QVBoxLayout;
     l1->setSpacing(2);
     l1->setMargin(0);
-    l->addLayout(l1);
+    l->addLayout(l1, 2);
 
     QLabel *lbl = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
@@ -159,13 +262,15 @@ void ItemEditFrame::setup_total_pages(QBoxLayout *l)
     l1->setMargin(0);
     l->addLayout(l1);
 
-    QLabel *lbl = new QLabel(this);
+    QLabel *lbl = lblTotalPages = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Total pages"));
+    Hlp::setWidth(lbl, 50);
     l1->addWidget(lbl);
 
-    QLineEdit *txt = new QLineEdit(this);
-//    txt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    QLineEdit *txt = edtTotalPages = new QLineEdit(this);
+    txt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    Hlp::setWidth(txt, 50);
     l1->addWidget(txt);
 }
 
@@ -176,12 +281,12 @@ void ItemEditFrame::setup_journal(QBoxLayout *l)
     l1->setMargin(0);
     l->addLayout(l1);
 
-    QLabel *lbl = new QLabel(this);
+    QLabel *lbl = lblJournal = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Journal"));
     l1->addWidget(lbl);
 
-    QLineEdit *txt = new QLineEdit(this);
+    QLineEdit *txt = edtJournal = new QLineEdit(this);
     l1->addWidget(txt);
 }
 
@@ -192,12 +297,12 @@ void ItemEditFrame::setup_volume(QBoxLayout *l)
     l1->setMargin(0);
     l->addLayout(l1);
 
-    QLabel *lbl = new QLabel(this);
+    QLabel *lbl = lblVolume = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Volume"));
     l1->addWidget(lbl);
 
-    QLineEdit *txt = new QLineEdit(this);
+    QLineEdit *txt = edtVolume = new QLineEdit(this);
     l1->addWidget(txt);
 }
 
@@ -208,12 +313,12 @@ void ItemEditFrame::setup_issue(QBoxLayout *l)
     l1->setMargin(0);
     l->addLayout(l1);
 
-    QLabel *lbl = new QLabel(this);
+    QLabel *lbl = lblIssue = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Issue"));
     l1->addWidget(lbl);
 
-    QLineEdit *txt = new QLineEdit(this);
+    QLineEdit *txt = edtIssue = new QLineEdit(this);
     l1->addWidget(txt);
 }
 
@@ -224,12 +329,15 @@ void ItemEditFrame::setup_page(QBoxLayout *l)
     l1->setMargin(0);
     l->addLayout(l1);
 
-    QLabel *lbl = new QLabel(this);
+    QLabel *lbl = lblPage = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Page"));
+    Hlp::setWidth(lbl, 50);
     l1->addWidget(lbl);
 
-    QLineEdit *txt = new QLineEdit(this);
+    QLineEdit *txt = edtPage = new QLineEdit(this);
+    txt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    Hlp::setWidth(txt, 50);
     l1->addWidget(txt);
 }
 

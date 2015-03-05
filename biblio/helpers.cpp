@@ -20,9 +20,9 @@ void setVPolicy(QWidget *w, QSizePolicy::Policy policy)
 
 void setWidth(QWidget *w, int width)
 {
-    QSize s = w->size();
+    QSize s = w->maximumSize();
     s.setWidth(width);
-    w->resize(s);
+    w->setMaximumSize(s);
 }
 
 } // namespace Hlp
