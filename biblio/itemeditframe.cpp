@@ -367,4 +367,4 @@ void ItemEditFrame::setup_comment(QBoxLayout *l)
     l1->addWidget(txt);
 }
 
-}
+} // namespace Biblio

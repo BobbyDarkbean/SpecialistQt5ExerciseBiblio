@@ -53,6 +53,6 @@ private:
     void setup_comment(QBoxLayout *);
 };
 
-}
+} // namespace Biblio
 
 #endif // ITEMEDITFRAME_H

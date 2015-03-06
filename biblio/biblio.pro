@@ -14,16 +14,21 @@ TEMPLATE = app
 
 SOURCES += \
     application.cpp \
+    edit.cpp \
     itemeditdialog.cpp \
     itemeditframe.cpp \
     main.cpp\
     mainwindow.cpp \
-    helpers.cpp
+    helpers.cpp \
+    table.cpp
 
 HEADERS += \
     application.h \
+    edit.h \
+    data.h \
     helpers.h \
     itemeditdialog.h \
     itemeditframe.h \
     items.h \
-    mainwindow.h
+    mainwindow.h \
+    table.h
