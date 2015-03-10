@@ -15,8 +15,9 @@ Application::~Application() { }
 
 void Application::setupLanguage(const QString &lcode)
 {
-    t->load("biblio_" + lcode);
+    t->load(":/lang/" + lcode);
     installTranslator(t);
+//    setLayoutDirection(Qt::RightToLeft);
 }
 
 }

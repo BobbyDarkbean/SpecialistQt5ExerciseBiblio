@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="edit">lightning.png</file>
+        <file alias="table">scroll.png</file>
+    </qresource>
+    <qresource prefix="/lang">
+        <file alias="ger">biblio_ger.qm</file>
+        <file alias="rus">biblio_rus.qm</file>
+    </qresource>
+</RCC>

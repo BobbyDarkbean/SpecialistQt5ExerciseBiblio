@@ -2,4 +2,3 @@ build*
 debug\
 release\
 *.user
-*.qm

@@ -17,20 +17,23 @@ TRANSLATIONS += biblio_rus.ts biblio_ger.ts
 SOURCES += \
     application.cpp \
     edit.cpp \
+    helpers.cpp \
     itemeditdialog.cpp \
     itemeditframe.cpp \
     main.cpp\
     mainwindow.cpp \
-    helpers.cpp \
     table.cpp
 
 HEADERS += \
     application.h \
-    edit.h \
     data.h \
+    edit.h \
     helpers.h \
     itemeditdialog.h \
     itemeditframe.h \
     items.h \
     mainwindow.h \
     table.h
+
+RESOURCES += \
+    biblio.qrc
