@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = biblio
 TEMPLATE = app
 
+TRANSLATIONS += biblio_rus.ts biblio_ger.ts
+
 
 SOURCES += \
     application.cpp \

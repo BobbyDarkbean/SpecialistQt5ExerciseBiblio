@@ -3,6 +3,8 @@
 
 #include <QApplication>
 
+class QTranslator;
+
 namespace Biblio {
 
 class Application : public QApplication
@@ -13,9 +15,14 @@ public:
     Application(int argc, char *argv[]);
     virtual ~Application();
 
+protected slots:
+    void setupLanguage(const QString &lcode);
+
 private:
     Application();
     Q_DISABLE_COPY(Application)
+
+    QTranslator *t;
 };
 
 }

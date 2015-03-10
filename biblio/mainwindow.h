@@ -17,6 +17,7 @@ public:
 
 signals:
     void cancelMode(bool *ok = 0);
+    void languageChanged(const QString &);
 
 protected slots:
     void newItem();
