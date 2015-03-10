@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(a, SIGNAL(triggered()), this, SLOT(newItem()));
     }{
      QAction *a = actEditMode = new QAction(this);
-     QIcon ic("application-text.svg");
+     QIcon ic("lightning.png");
      a->setText(tr("Edit mode"));
      a->setIcon(ic);
      a->setCheckable(true);
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(a, SIGNAL(triggered()), this, SLOT(editMode()));
     }{
      QAction *a = actTableMode = new QAction(this);
-     QIcon ic("misc.svg");
+     QIcon ic("scroll.png");
      a->setText(tr("Table mode"));
      a->setIcon(ic);
      a->setCheckable(true);
