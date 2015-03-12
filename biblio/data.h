@@ -15,22 +15,28 @@ struct Object
     QString publisher;
     int year;
 
-    virtual ~Object();
+    virtual ~Object() { }
 };
-
-Object::~Object() { }
 
 struct Book : public Object
 {
+    Book() : Object() { }
+
     int totalPages;
+
+    virtual ~Book() { }
 };
 
 struct Article : public Object
 {
+    Article() : Object() { }
+
     QString journal;
     QString volume;
     QString issue;
     QString page;
+
+    virtual ~Article() { }
 };
 
 } // namespace Data

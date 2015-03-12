@@ -5,13 +5,15 @@
 #include <QBoxLayout>
 #include "items.h"
 #include "helpers.h"
+#include "data.h"
 
 #include "itemeditframe.h"
 
 namespace Biblio {
 
 ItemEditFrame::ItemEditFrame(QWidget *parent) :
-    QFrame(parent)
+    QFrame(parent),
+    dt(0)
 {
     setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -46,6 +48,38 @@ ItemEditFrame::ItemEditFrame(QWidget *parent) :
 }
 
 ItemEditFrame::~ItemEditFrame() { }
+
+void ItemEditFrame::attach(Data::Object *o)
+{
+    if (dt)
+        delete dt;
+
+    dt = o;
+    if (!dt)
+        return;
+
+    edtAuthor->setText(o->author);
+    edtTitle->setText(o->title);
+
+    if (Data::Book *b = dynamic_cast<Data::Book *>(o)) {
+        edtTotalPages->setText(QString::number(b->totalPages));
+    }
+    if (Data::Article *a = dynamic_cast<Data::Article *>(o)) {
+        edtJournal->setText(a->journal);
+        edtVolume->setText(a->volume);
+        edtIssue->setText(a->issue);
+        edtPage->setText(a->page);
+    }
+}
+
+Data::Object *ItemEditFrame::acquire()
+{
+    if (!dt)
+        dt = new Data::Object;
+
+    dt->author = edtAuthor->text();
+    dt->title = edtTitle->text();
+}
 
 void ItemEditFrame::itemTypeSelected(int index)
 {
@@ -166,12 +200,12 @@ void ItemEditFrame::setup_author(QBoxLayout *l)
     l1->setMargin(0);
     l->addLayout(l1);
 
-    QLabel *lbl = new QLabel(this);
+    QLabel *lbl = lblAuthor = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Author"));
     l1->addWidget(lbl);
 
-    QLineEdit *txt = new QLineEdit(this);
+    QLineEdit *txt = edtAuthor = new QLineEdit(this);
     l1->addWidget(txt);
 }
 
@@ -182,12 +216,12 @@ void ItemEditFrame::setup_title(QBoxLayout *l)
     l1->setMargin(0);
     l->addLayout(l1);
 
-    QLabel *lbl = new QLabel(this);
+    QLabel *lbl = lblTitle = new QLabel(this);
     lbl->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     lbl->setText(tr("Title"));
     l1->addWidget(lbl);
 
-    QLineEdit *txt = new QLineEdit(this);
+    QLineEdit *txt = edtTitle = new QLineEdit(this);
     l1->addWidget(txt);
 }
 

@@ -16,6 +16,7 @@ TRANSLATIONS += biblio_rus.ts biblio_ger.ts
 
 SOURCES += \
     application.cpp \
+    bibliomodel.cpp \
     edit.cpp \
     helpers.cpp \
     itemeditdialog.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     application.h \
+    bibliomodel.h \
     data.h \
     edit.h \
     helpers.h \

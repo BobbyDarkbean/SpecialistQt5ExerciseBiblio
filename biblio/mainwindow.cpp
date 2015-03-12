@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMenu *mToolBars = menuBar()->addMenu(tr("Toolbars"));
     mToolBars->addAction(tbModes->toggleViewAction());
 
-    editMode();
+    tableMode();
 
     QMenu *mWindows = menuBar()->addMenu(tr("Windows"));
 

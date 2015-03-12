@@ -2,6 +2,7 @@
 #include <QPushButton>
 #include <QFrame>
 #include <QSpacerItem>
+#include "data.h"
 #include "itemeditframe.h"
 
 #include "itemeditdialog.h"
@@ -54,5 +55,15 @@ ItemEditDialog::ItemEditDialog(QWidget *parent) :
 }
 
 ItemEditDialog::~ItemEditDialog() { }
+
+void ItemEditDialog::attach(Data::Object *o)
+{
+    edt->attach(o);
+}
+
+Data::Object *ItemEditDialog::acquire() const
+{
+    return edt->acquire();
+}
 
 } // namespace Biblio

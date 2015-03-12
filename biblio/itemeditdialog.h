@@ -8,6 +8,12 @@ class QPushButton;
 
 namespace Biblio {
 
+namespace Data {
+struct Object;
+}
+
+class ItemEditFrame;
+
 namespace ItemEditDialog_Helper {
     class ButtonsFrame : public QFrame
     {
@@ -40,9 +46,13 @@ public:
     explicit ItemEditDialog(QWidget *parent = 0);
     virtual ~ItemEditDialog();
 
+    void attach(Data::Object *);
+    Data::Object *acquire() const;
+
 private:
     Q_DISABLE_COPY(ItemEditDialog)
 
+    ItemEditFrame *edt;
     ItemEditDialog_Helper::ButtonsFrame *btn;
 };
 

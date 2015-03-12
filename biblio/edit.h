@@ -13,8 +13,6 @@ public:
     explicit Edit(QWidget *parent = 0);
     virtual ~Edit();
 
-signals:
-
 public slots:
     void onCancelMode(bool *ok = 0);
 };

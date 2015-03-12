@@ -13,9 +13,17 @@ public:
     explicit Table(QWidget *parent = 0);
     virtual ~Table();
 
-signals:
+protected slots:
+    void itemCreateNew();
+    void itemEditCurrent();
+    void itemDeleteCurrent();
 
-public slots:
+private:
+    Q_DISABLE_COPY(Table)
+
+    QAction *actNew;
+    QAction *actEdit;
+    QAction *actDelete;
 };
 
 } // namespace Biblio

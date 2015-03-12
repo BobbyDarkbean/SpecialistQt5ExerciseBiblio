@@ -9,6 +9,10 @@ class QComboBox;
 class QBoxLayout;
 namespace Biblio {
 
+namespace Data {
+struct Object;
+}
+
 class ItemEditFrame : public QFrame
 {
     Q_OBJECT
@@ -16,6 +20,9 @@ class ItemEditFrame : public QFrame
 public:
     explicit ItemEditFrame(QWidget *parent = 0);
     virtual ~ItemEditFrame();
+
+    void attach(Data::Object *);
+    Data::Object *acquire();
 
 protected slots:
     void itemTypeSelected(int index);
@@ -27,7 +34,11 @@ private:
     void setup_item_type(QBoxLayout *);
 
     void setup_author(QBoxLayout *);
+    QLabel      *lblAuthor;
+    QLineEdit   *edtAuthor;
     void setup_title(QBoxLayout *);
+    QLabel      *lblTitle;
+    QLineEdit   *edtTitle;
     void setup_subtitle(QBoxLayout *);
 
     void setup_location(QBoxLayout *);
@@ -51,6 +62,8 @@ private:
     void setup_page(QBoxLayout *);
 
     void setup_comment(QBoxLayout *);
+
+    Data::Object *dt;
 };
 
 } // namespace Biblio
