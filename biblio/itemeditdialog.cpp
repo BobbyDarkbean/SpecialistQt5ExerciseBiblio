@@ -20,15 +20,15 @@ namespace ItemEditDialog_Helper {
         QHBoxLayout *l = new QHBoxLayout(this);
         l->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Maximum));
         {
-         QPushButton *b = okButton = new QPushButton(this);
-         l->addWidget(b);
-         b->setText(tr("OK"));
-         connect(b, SIGNAL(clicked()), this, SIGNAL(accepting()));
+            QPushButton *b = okButton = new QPushButton(this);
+            l->addWidget(b);
+            b->setText(tr("OK"));
+            connect(b, SIGNAL(clicked()), this, SIGNAL(accepting()));
         }{
-         QPushButton *b = cancelButton = new QPushButton(this);
-         l->addWidget(b);
-         b->setText(tr("Cancel"));
-         connect(b, SIGNAL(clicked()), this, SIGNAL(rejecting()));
+            QPushButton *b = cancelButton = new QPushButton(this);
+            l->addWidget(b);
+            b->setText(tr("Cancel"));
+            connect(b, SIGNAL(clicked()), this, SIGNAL(rejecting()));
         }
     }
 
@@ -43,13 +43,13 @@ ItemEditDialog::ItemEditDialog(QWidget *parent) :
 
     QVBoxLayout *l0 = new QVBoxLayout(this);
     {
-     ItemEditFrame *f = new ItemEditFrame(this);
-     l0->addWidget(f);
+        edt = new ItemEditFrame(this);
+        l0->addWidget(edt);
     }{
-     btn = new ItemEditDialog_Helper::ButtonsFrame(this);
-     connect(btn, SIGNAL(accepting()), this, SLOT(accept()));
-     connect(btn, SIGNAL(rejecting()), this, SLOT(reject()));
-     l0->addWidget(btn);
+        btn = new ItemEditDialog_Helper::ButtonsFrame(this);
+        connect(btn, SIGNAL(accepting()), this, SLOT(accept()));
+        connect(btn, SIGNAL(rejecting()), this, SLOT(reject()));
+        l0->addWidget(btn);
     }
 
 }
@@ -64,6 +64,19 @@ void ItemEditDialog::attach(Data::Object *o)
 Data::Object *ItemEditDialog::acquire() const
 {
     return edt->acquire();
+}
+
+void ItemEditDialog::done(int r)
+{
+    switch (r) {
+    case Accepted:
+        if (!edt->isValid() || !edt->acquire())
+            return;
+        // fall through
+    case Rejected:
+    default:
+        QDialog::done(r);
+    }
 }
 
 } // namespace Biblio

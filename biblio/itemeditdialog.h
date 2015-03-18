@@ -49,6 +49,8 @@ public:
     void attach(Data::Object *);
     Data::Object *acquire() const;
 
+    void done(int);
+
 private:
     Q_DISABLE_COPY(ItemEditDialog)
 

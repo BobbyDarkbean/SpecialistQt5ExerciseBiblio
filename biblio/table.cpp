@@ -47,12 +47,11 @@ void Table::itemEditCurrent()
     if (!mi.isValid())
         return;
 
-    Data::Object *o = new Data::Object;
-    o->author = model()->data(mi).toString();
-    o->title = model()->data(mi).toString();
+    Data::Object *o = bblApp->model()->at(mi.row());
+//    o->author = model()->data(mi).toString();
 
     ItemEditDialog dialog(this);
-//    dialog.attach();
+    dialog.attach(o);
 
     dialog.exec();
 }

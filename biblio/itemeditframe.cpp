@@ -24,23 +24,23 @@ ItemEditFrame::ItemEditFrame(QWidget *parent) :
     setup_title(l);
     setup_subtitle(l);
     {
-     QBoxLayout *l1 = new QHBoxLayout;
-     l1->setMargin(0);
-     l->addLayout(l1);
+        QBoxLayout *l1 = new QHBoxLayout;
+        l1->setMargin(0);
+        l->addLayout(l1);
 
-     setup_location(l1);
-     setup_publisher(l1);
-     setup_year(l1);
-     setup_total_pages(l1);
+        setup_location(l1);
+        setup_publisher(l1);
+        setup_year(l1);
+        setup_total_pages(l1);
     }{
-     QBoxLayout *l1 = new QHBoxLayout;
-     l1->setMargin(0);
-     l->addLayout(l1);
+        QBoxLayout *l1 = new QHBoxLayout;
+        l1->setMargin(0);
+        l->addLayout(l1);
 
-     setup_journal(l1);
-     setup_volume(l1);
-     setup_issue(l1);
-     setup_page(l1);
+        setup_journal(l1);
+        setup_volume(l1);
+        setup_issue(l1);
+        setup_page(l1);
     }
     setup_comment(l);
 
@@ -63,22 +63,49 @@ void ItemEditFrame::attach(Data::Object *o)
 
     if (Data::Book *b = dynamic_cast<Data::Book *>(o)) {
         edtTotalPages->setText(QString::number(b->totalPages));
+        if (int k = cbxItemType->findData(Book) >= 0) {
+            cbxItemType->setCurrentIndex(k);
+            cbxItemType->setEnabled(false);
+        }
     }
     if (Data::Article *a = dynamic_cast<Data::Article *>(o)) {
         edtJournal->setText(a->journal);
         edtVolume->setText(a->volume);
         edtIssue->setText(a->issue);
         edtPage->setText(a->page);
+        if (int k = cbxItemType->findData(Article) >= 0) {
+            cbxItemType->setCurrentIndex(k);
+            cbxItemType->setEnabled(false);
+        }
     }
 }
 
 Data::Object *ItemEditFrame::acquire()
 {
-    if (!dt)
-        dt = new Data::Object;
+    if (!dt) {
+        switch (cbxItemType->currentIndex()) {
+        case Book:
+            dt = new Data::Book;
+            break;
+        case Article:
+            dt = new Data::Article;
+            break;
+        default:
+            return 0;
+        }
+    }
 
     dt->author = edtAuthor->text();
     dt->title = edtTitle->text();
+
+    return dt;
+}
+
+bool ItemEditFrame::isValid() const
+{
+    // заголовок не должен начинаться с точки
+    QString s = edtTitle->text();
+    return edtTitle->text().isEmpty() || edtTitle->text().at(0) != '.';
 }
 
 void ItemEditFrame::itemTypeSelected(int index)
@@ -308,6 +335,7 @@ void ItemEditFrame::setup_total_pages(QBoxLayout *l)
     QLineEdit *txt = edtTotalPages = new QLineEdit(this);
     txt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
     Hlp::setWidth(txt, 50);
+    txt->setValidator(new QIntValidator(0, 1000000));
     l1->addWidget(txt);
 }
 

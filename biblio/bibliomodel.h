@@ -21,6 +21,8 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 
+    Data::Object *at(int);
+
 private:
     QList<Data::Object *> l;
 };

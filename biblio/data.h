@@ -8,6 +8,8 @@ namespace Data {
 
 struct Object
 {
+    Object() : year(0) { }
+
     QString author;
     QString title;
     QString subtitle;
@@ -20,7 +22,7 @@ struct Object
 
 struct Book : public Object
 {
-    Book() : Object() { }
+    Book() : Object(), totalPages(0) { }
 
     int totalPages;
 

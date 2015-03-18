@@ -20,27 +20,29 @@ MainWindow::MainWindow(QWidget *parent) :
     agModes->setExclusive(true);
 
     {
-     QAction *a = actNewItem = new QAction(this);
-     a->setText(tr("Item"));
-     connect(a, SIGNAL(triggered()), this, SLOT(newItem()));
-    }{
-     QAction *a = actEditMode = new QAction(this);
-     QIcon ic(":/icons/edit");
-     a->setText(tr("Edit mode"));
-     a->setIcon(ic);
-     a->setCheckable(true);
-     agModes->addAction(a);
-     modeActions.insert("Edit", a);
-     connect(a, SIGNAL(triggered()), this, SLOT(editMode()));
-    }{
-     QAction *a = actTableMode = new QAction(this);
-     QIcon ic(":/icons/table");
-     a->setText(tr("Table mode"));
-     a->setIcon(ic);
-     a->setCheckable(true);
-     agModes->addAction(a);
-     modeActions.insert("Table", a);
-     connect(a, SIGNAL(triggered()), this, SLOT(tableMode()));
+        QAction *a = actNewItem = new QAction(this);
+        a->setText(tr("Item"));
+        connect(a, SIGNAL(triggered()), this, SLOT(newItem()));
+    }
+    {
+        QAction *a = actEditMode = new QAction(this);
+        QIcon ic(":/icons/edit");
+        a->setText(tr("Edit mode"));
+        a->setIcon(ic);
+        a->setCheckable(true);
+        agModes->addAction(a);
+        modeActions.insert("Edit", a);
+        connect(a, SIGNAL(triggered()), this, SLOT(editMode()));
+    }
+    {
+        QAction *a = actTableMode = new QAction(this);
+        QIcon ic(":/icons/table");
+        a->setText(tr("Table mode"));
+        a->setIcon(ic);
+        a->setCheckable(true);
+        agModes->addAction(a);
+        modeActions.insert("Table", a);
+        connect(a, SIGNAL(triggered()), this, SLOT(tableMode()));
     }
 
     QMenu *menuItem = menuBar()->addMenu(tr("Item"));
@@ -65,31 +67,31 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Несколько тестовых припаркованных окон
     {
-     QDockWidget *d1 = new QDockWidget(this);
-     d1->setWindowTitle(tr("Yellow"));
-     QFrame *f1 = new QFrame(this);
-     f1->setStyleSheet("background: yellow;");
-     d1->setWidget(f1);
-     addDockWidget(Qt::LeftDockWidgetArea, d1);
-     mWindows->addAction(d1->toggleViewAction());
+        QDockWidget *d1 = new QDockWidget(this);
+        d1->setWindowTitle(tr("Yellow"));
+        QFrame *f1 = new QFrame(this);
+        f1->setStyleSheet("background: yellow;");
+        d1->setWidget(f1);
+        addDockWidget(Qt::LeftDockWidgetArea, d1);
+        mWindows->addAction(d1->toggleViewAction());
     }
     {
-     QDockWidget *d1 = new QDockWidget(this);
-     d1->setWindowTitle(tr("Green"));
-     QFrame *f1 = new QFrame(this);
-     f1->setStyleSheet("background: green;");
-     d1->setWidget(f1);
-     addDockWidget(Qt::LeftDockWidgetArea, d1);
-     mWindows->addAction(d1->toggleViewAction());
+        QDockWidget *d1 = new QDockWidget(this);
+        d1->setWindowTitle(tr("Green"));
+        QFrame *f1 = new QFrame(this);
+        f1->setStyleSheet("background: green;");
+        d1->setWidget(f1);
+        addDockWidget(Qt::LeftDockWidgetArea, d1);
+        mWindows->addAction(d1->toggleViewAction());
     }
     {
-     QDockWidget *d1 = new QDockWidget(this);
-     d1->setWindowTitle(tr("Red"));
-     QFrame *f1 = new QFrame(this);
-     f1->setStyleSheet("background: red;");
-     d1->setWidget(f1);
-     addDockWidget(Qt::LeftDockWidgetArea, d1);
-     mWindows->addAction(d1->toggleViewAction());
+        QDockWidget *d1 = new QDockWidget(this);
+        d1->setWindowTitle(tr("Red"));
+        QFrame *f1 = new QFrame(this);
+        f1->setStyleSheet("background: red;");
+        d1->setWidget(f1);
+        addDockWidget(Qt::LeftDockWidgetArea, d1);
+        mWindows->addAction(d1->toggleViewAction());
     }
 
 

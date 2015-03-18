@@ -15,6 +15,10 @@ BiblioModel::BiblioModel(QObject *parent) :
     l.append(x);
 }
 
+#define iterate(ContainerType, Container) \
+    ContainerType::iterator _e = Container.end(); \
+    for (ContainerType::iterator i = Container.begin(); i != _e; ++i)
+
 BiblioModel::~BiblioModel()
 {
     // Java-style
@@ -25,9 +29,15 @@ BiblioModel::~BiblioModel()
         delete o;
     }*/
 
-    // Java-style via macro
+    // via macro
+    /*
     foreach (Data::Object *o, l) {
         delete o;
+    }*/
+
+    // custom macro
+    iterate (QList<Data::Object *>, l) {
+        delete *i;
     }
 
     // STL-style
@@ -69,6 +79,11 @@ QVariant BiblioModel::data(const QModelIndex &index, int role) const
     } else {
         return QVariant();
     }
+}
+
+Data::Object *BiblioModel::at(int k)
+{
+    return l.at(k);
 }
 
 } // namespace Biblio

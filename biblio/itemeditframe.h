@@ -24,6 +24,8 @@ public:
     void attach(Data::Object *);
     Data::Object *acquire();
 
+    bool isValid() const;
+
 protected slots:
     void itemTypeSelected(int index);
 
